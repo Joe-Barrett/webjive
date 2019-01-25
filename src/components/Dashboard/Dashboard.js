@@ -1,44 +1,44 @@
-import React, { Component } from "react";
-import classNames from "classnames";
-import { DragDropContext } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
-import queryString from "query-string";
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import queryString from 'query-string';
 
-import EditCanvas from "./EditCanvas/EditCanvas";
-import Library from "./Library/Library";
-import RunCanvas from "./RunCanvas/RunCanvas";
-import Inspector from "./Inspector/Inspector";
+import EditCanvas from './EditCanvas/EditCanvas';
+import Library from './Library/Library';
+import RunCanvas from './RunCanvas/RunCanvas';
+import Inspector from './Inspector/Inspector';
 
 import {
   WIDGET_DEFINITIONS,
   getWidgetDefinition,
   normalizeWidgetDefinitions
-} from "./widgets/widgetDefinitions";
+} from './widgets/widgetDefinitions';
 
-import { complexWidgetDefinition } from "./ComplexWidget/ComplexWidget";
+import complexWidgetDefinition from './ComplexWidget/ComplexWidget';
 
 const GRID_TILE_SIZE = 15;
-import "./Dashboard.css";
+import './Dashboard.css';
 
 const DEFAULT_CANVASES = [
   {
     id: 0,
-    name: "Root",
+    name: 'Root',
     widgets: []
   },
   {
     id: 1,
-    name: "Subcanvas 1",
+    name: 'Subcanvas 1',
     widgets: []
   },
   {
     id: 2,
-    name: "Subcanvas 2",
+    name: 'Subcanvas 2',
     widgets: []
   },
   {
     id: 3,
-    name: "Subcanvas 3",
+    name: 'Subcanvas 3',
     widgets: []
   }
 ];
@@ -51,8 +51,8 @@ class Dashboard extends Component {
     const canvases = c ? JSON.parse(decodeURI(c)) : DEFAULT_CANVASES;
 
     this.state = {
-      mode: "edit",
-      sidebar: "library", // Belongs in edit component
+      mode: 'edit',
+      sidebar: 'library', // Belongs in edit component
       selectedWidgetIndex: -1, // Belongs in edit component
       selectedCanvasIndex: 0,
       canvases,
@@ -71,7 +71,7 @@ class Dashboard extends Component {
   }
 
   toggleMode() {
-    const mode = { edit: "run", run: "edit" }[this.state.mode];
+    const mode = { edit: 'run', run: 'edit' }[this.state.mode];
     this.setState({ mode });
   }
 
@@ -94,7 +94,7 @@ class Dashboard extends Component {
       {}
     );
 
-    const device = this.isRootCanvas() ? null : "__parent__";
+    const device = this.isRootCanvas() ? null : '__parent__';
     const widget = {
       type: definition.type,
       device,
@@ -120,9 +120,7 @@ class Dashboard extends Component {
 
   updateWidgets(widgets, selectedWidgetIndex) {
     selectedWidgetIndex =
-      selectedWidgetIndex != null
-        ? selectedWidgetIndex
-        : this.state.selectedWidgetIndex;
+      selectedWidgetIndex != null ? selectedWidgetIndex : this.state.selectedWidgetIndex;
 
     const canvases = [...this.state.canvases];
     const canvas = { ...canvases[this.state.selectedCanvasIndex], widgets };
@@ -130,7 +128,7 @@ class Dashboard extends Component {
     this.setState({ canvases, selectedWidgetIndex });
 
     const c = encodeURI(JSON.stringify(this.state.canvases));
-    this.props.history.replace("?c=" + c);
+    this.props.history.replace('?c=' + c);
   }
 
   // Convenience method used by handler methods
@@ -183,9 +181,7 @@ class Dashboard extends Component {
     const widgets = this.currentWidgets();
     const selectedWidget = this.selectedWidget();
 
-    const complexWidgetDefinitions = this.state.canvases.slice(1).map(
-      complexWidgetDefinition
-    );
+    const complexWidgetDefinitions = this.state.canvases.slice(1).map(complexWidgetDefinition);
 
     const widgetDefinitions = normalizeWidgetDefinitions([
       ...WIDGET_DEFINITIONS,
@@ -197,36 +193,34 @@ class Dashboard extends Component {
         <div className="TopBar">
           <button
             onClick={this.toggleMode}
-            style={{ fontSize: "small", padding: "0.5em", width: "2em" }}
-            className={classNames("form-control fa", {
-              "fa-play": mode === "edit",
-              "fa-pause": mode === "run"
+            style={{ fontSize: 'small', padding: '0.5em', width: '2em' }}
+            className={classNames('form-control fa', {
+              'fa-play': mode === 'edit',
+              'fa-pause': mode === 'run'
             })}
             disabled={!this.isRootCanvas()}
           />
           <select
             className="form-control"
             style={{
-              marginLeft: "0.5em",
-              width: "auto",
-              height: "auto",
-              display: "inline"
+              marginLeft: '0.5em',
+              width: 'auto',
+              height: 'auto',
+              display: 'inline'
             }}
             onChange={this.handleChangeCanvas}
           >
             {this.state.canvases.map((canvas, i) => (
               <option key={i} value={i}>
-                {i === 0 ? "Root" : canvas.name}
+                {i === 0 ? 'Root' : canvas.name}
               </option>
             ))}
           </select>
           {false && (
-            <button onClick={() => alert(JSON.stringify(this.state.canvases))}>
-              Dump
-            </button>
+            <button onClick={() => alert(JSON.stringify(this.state.canvases))}>Dump</button>
           )}
         </div>
-        {mode === "edit" ? (
+        {mode === 'edit' ? (
           <EditCanvas
             widgets={widgets}
             widgetDefinitions={widgetDefinitions}
@@ -243,7 +237,7 @@ class Dashboard extends Component {
             subCanvases={[null, ...this.state.canvases.slice(1)]}
           />
         )}
-        {mode === "edit" && (
+        {mode === 'edit' && (
           <div className="Sidebar">
             {this.state.selectedWidgetIndex === -1 ? (
               <Library
