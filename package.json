@@ -6,6 +6,8 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
+    "test:coverage": "react-scripts-ts test \"--coverage\"",
+    "code-analysis": "./node_modules/.bin/eslint \"src/**\" --ignore-path .eslintignore",
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
@@ -13,6 +15,9 @@
     "axios": "0.18.0",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.5",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "jest-enzyme": "^7.0.1",
     "font-awesome": "^4.7.0",
     "graphql-client": "^2.0.1",
     "graphql-request": "^1.8.2",
@@ -49,7 +54,18 @@
     "@types/redux-logger": "^3.0.6",
     "redux-logger": "^3.0.6",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "@types/enzyme": "^3.1.15",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.4.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.3",
+    "prettier": "^1.15.3",
+    "react-test-renderer": "^16.7.0"
   },
   "proxy": {
     "/socket": {
