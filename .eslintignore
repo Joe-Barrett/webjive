@@ -1,4 +1,6 @@
 /src/resources/logo.svg
+/src/**/*.ts
+/src/**/*.tsx
 node_modules
 coverage
 **/*.css
