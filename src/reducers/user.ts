@@ -6,7 +6,7 @@ import {
   PRELOAD_USER_SUCCESS,
   PRELOAD_USER_FAILED,
   LOGOUT
-} from "../actions/actionTypes";
+} from '../actions/actionTypes';
 
 import {
   ILoginAction,
@@ -16,7 +16,7 @@ import {
   ILogoutSuccessAction,
   IPreloadUserSuccessAction,
   IPreloadUserFailedAction
-} from "../actions/typedActions";
+} from '../actions/typedActions';
 
 export interface IUserState {
   username?: string;
@@ -38,10 +38,7 @@ const initialState = {
   loginFailed: false
 };
 
-export default function user(
-  state: IUserState = initialState,
-  action: UserAction
-) {
+export default function user(state: IUserState = initialState, action: UserAction) {
   switch (action.type) {
     case LOGIN:
       return { ...state, awaitingResponse: true };

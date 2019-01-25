@@ -1,19 +1,19 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import deviceDetail, { IDeviceDetailState } from "./deviceDetail";
-import deviceList, { IDeviceListState } from "./deviceList";
-import loadingStatus, { ILoadingStatusState } from "./loadingStatus";
-import commandOutput, { ICommandOutputState } from "./commandOutput";
+import deviceDetail, { IDeviceDetailState } from './deviceDetail';
+import deviceList, { IDeviceListState } from './deviceList';
+import loadingStatus, { ILoadingStatusState } from './loadingStatus';
+import commandOutput, { ICommandOutputState } from './commandOutput';
 
-import currentDevice from "./currentDevice";
-import devices, { IDevicesState } from "./devices";
-import attributes, { IAttributesState } from "./attributes";
-import commands, { ICommandsState } from "./commands";
-import properties, { IPropertiesState } from "./properties";
-import modal, { IModalState } from "./modals";
-import user, { IUserState } from "./user";
+import currentDevice from './currentDevice';
+import devices, { IDevicesState } from './devices';
+import attributes, { IAttributesState } from './attributes';
+import commands, { ICommandsState } from './commands';
+import properties, { IPropertiesState } from './properties';
+import modal, { IModalState } from './modals';
+import user, { IUserState } from './user';
 
-import error from "./error";
+import error from './error';
 
 export interface IRootState {
   // View state

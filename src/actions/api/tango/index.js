@@ -1,4 +1,4 @@
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient } from 'graphql-request';
 
 import {
   FETCH_DEVICE_NAMES,
@@ -7,9 +7,9 @@ import {
   SET_DEVICE_PROPERTY,
   DELETE_DEVICE_PROPERTY,
   FETCH_DEVICE
-} from "./operations";
+} from './operations';
 
-const client = new GraphQLClient("/db");
+const client = new GraphQLClient('/db');
 
 export default {
   async fetchDeviceNames() {

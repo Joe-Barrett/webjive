@@ -7,9 +7,9 @@ import {
   PRELOAD_USER_SUCCESS,
   PRELOAD_USER_FAILED,
   PRELOAD_USER
-} from "./actionTypes";
+} from './actionTypes';
 
-import { Action } from "redux";
+import { Action } from 'redux';
 
 export interface ILoginAction extends Action {
   type: typeof LOGIN;

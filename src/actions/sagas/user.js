@@ -1,4 +1,4 @@
-import { take, fork, call, put } from "redux-saga/effects";
+import { take, fork, call, put } from 'redux-saga/effects';
 
 import {
   preloadUserSuccess,
@@ -6,9 +6,9 @@ import {
   logoutSuccess,
   loginSuccess,
   loginFailed
-} from "../typedActionCreators";
+} from '../typedActionCreators';
 
-import { PRELOAD_USER, LOGIN, LOGOUT } from "../actionTypes";
+import { PRELOAD_USER, LOGIN, LOGOUT } from '../actionTypes';
 import UserAPI from '../api/user';
 
 function* preloadUser() {
@@ -22,7 +22,7 @@ function* preloadUser() {
 
 function* login() {
   while (true) {
-    const {username, password} = yield take(LOGIN);
+    const { username, password } = yield take(LOGIN);
     const result = yield call(UserAPI.login, username, password);
     const action = result ? loginSuccess({ username }) : loginFailed();
     yield put(action);

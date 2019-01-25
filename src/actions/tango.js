@@ -1,40 +1,29 @@
 import { displayError } from './error';
-import {uri} from '../constants/websocket';
-
-import { setTab } from './deviceList';
-import { queryExistsDevice, queryDeviceWithName } from '../selectors/queries';
-import { getCurrentDeviceName } from '../selectors/currentDevice';
+import { queryDeviceWithName } from '../selectors/queries.ts';
+import { getCurrentDeviceName } from '../selectors/currentDevice.ts';
 
 import TangoAPI from './api/tango';
 
 import {
   FETCH_DEVICE,
   FETCH_DEVICE_SUCCESS,
-  FETCH_DEVICE_FAILED,
-
   FETCH_DEVICE_NAMES,
   FETCH_DEVICE_NAMES_SUCCESS,
-  
   EXECUTE_COMMAND,
   EXECUTE_COMMAND_COMPLETE,
-
   SELECT_DEVICE,
   SELECT_DEVICE_SUCCESS,
-
   DISABLE_DISPLEVEL,
   ENABLE_DISPLEVEL,
-  
   SET_DEVICE_PROPERTY,
   SET_DEVICE_PROPERTY_SUCCESS,
   SET_DEVICE_PROPERTY_FAILED,
-
   SET_DEVICE_ATTRIBUTE,
   SET_DEVICE_ATTRIBUTE_SUCCESS,
   SET_DEVICE_ATTRIBUTE_FAILED,
-
   DELETE_DEVICE_PROPERTY,
   DELETE_DEVICE_PROPERTY_SUCCESS,
-  DELETE_DEVICE_PROPERTY_FAILED,
+  DELETE_DEVICE_PROPERTY_FAILED
 } from './actionTypes';
 
 export function fetchDeviceNames() {
@@ -113,23 +102,21 @@ export function deleteDeviceProperty(device, name) {
   };
 }
 
-export function unSubscribeDevice(device, emit){
+export function unSubscribeDevice(device, emit) {
   if (device && device.attributes) {
-    const models = device.attributes
-      .map(({name}) => `${device.name}/${name}`);
-    const query =`
+    const models = device.attributes.map(({ name }) => `${device.name}/${name}`);
+    const query = `
     subscription newChangeEvent($models:[String]){
       unsubChangeEvent(models:$models)
-    }`
-    const variables = {"models":models}   
-    emit("start", {query,variables});
+    }`;
+    const variables = { models };
+    emit('start', { query, variables });
   }
 }
 
-export function subscribeDevice(device, emit){
+export function subscribeDevice(device, emit) {
   if (device && device.attributes) {
-    const models = device.attributes
-      .map(({name}) => `${device.name}/${name}`);
+    const models = device.attributes.map(({ name }) => `${device.name}/${name}`);
     const query = `
     subscription newChangeEvent($models:[String]){
       changeEvent(models:$models){
@@ -141,8 +128,8 @@ export function subscribeDevice(device, emit){
         }
       }
     }`;
-    const variables = {"models":models};
-    emit("start", {query,variables});
+    const variables = { models };
+    emit('start', { query, variables });
   }
 }
 
@@ -155,16 +142,37 @@ export function disableDisplevel(displevel) {
 }
 
 export function fetchDeviceSuccess(device) {
-  return (dispatch, getState, {emit}) => {
+  return (dispatch, getState, { emit }) => {
     subscribeDevice(device, emit);
-    return dispatch({type: FETCH_DEVICE_SUCCESS, device});
-  }
+    return dispatch({ type: FETCH_DEVICE_SUCCESS, device });
+  };
+}
+
+function selectDeviceSuccess(device) {
+  return { type: SELECT_DEVICE_SUCCESS, device };
+}
+
+export function fetchDevice() {
+  return async (dispatch, getState, { emit }) => {
+    const name = getCurrentDeviceName(getState());
+    unSubscribeDevice(name, emit);
+    dispatch({ type: FETCH_DEVICE, name });
+
+    try {
+      const device = await TangoAPI.fetchDevice(name);
+      return dispatch(
+        device ? fetchDeviceSuccess(device) : displayError(`The device ${name} was not found`)
+      );
+    } catch (err) {
+      return dispatch(displayError(err.toString()));
+    }
+  };
 }
 
 export function selectDevice(name) {
   return (dispatch, getState) => {
-    dispatch({type: SELECT_DEVICE, name});
-    
+    dispatch({ type: SELECT_DEVICE, name });
+
     const device = queryDeviceWithName(getState(), name);
     if (device) {
       return dispatch(selectDeviceSuccess(device));
@@ -175,25 +183,8 @@ export function selectDevice(name) {
         const newDevice = action.device;
         return dispatch(selectDeviceSuccess(newDevice));
       }
-    })
-  }
-}
-
-function selectDeviceSuccess(device) {
-  return {type: SELECT_DEVICE_SUCCESS, device};
-}
-
-export function fetchDevice(name) {
-  return async (dispatch, getState, { emit }) => {
-    const name = getCurrentDeviceName(getState());
-    unSubscribeDevice(name, emit);
-    dispatch({type: FETCH_DEVICE, name});
-    
-    try {
-      const device = await TangoAPI.fetchDevice(name);
-      return dispatch(device ? fetchDeviceSuccess(device) : displayError("The device " + name + " was not found"));
-    } catch (err) {
-      return dispatch(displayError(err.toString()));
-    }
-  }
+      return null;
+    });
+    return null;
+  };
 }

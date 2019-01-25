@@ -1,13 +1,4 @@
-import {
-  shape,
-  number,
-  string,
-  oneOf,
-  arrayOf,
-  func,
-  object,
-  instanceOf
-} from "prop-types";
+import { shape, number, string, arrayOf, func, object, instanceOf } from 'prop-types';
 
 export const widget = shape({
   attribute: string,

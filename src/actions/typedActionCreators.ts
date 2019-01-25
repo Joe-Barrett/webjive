@@ -6,7 +6,7 @@ import {
   ILogoutSuccessAction,
   ILoginSuccessAction,
   ILoginFailedAction
-} from "./typedActions";
+} from './typedActions';
 
 import {
   PRELOAD_USER,
@@ -17,7 +17,7 @@ import {
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILED
-} from "./actionTypes";
+} from './actionTypes';
 
 interface IUser {
   username: string;
@@ -25,16 +25,16 @@ interface IUser {
 
 export function preloadUserSuccess(user: IUser): IPreloadUserSuccessAction {
   const username = user.username;
-  return { type: PRELOAD_USER_SUCCESS, username };
+  return { username, type: PRELOAD_USER_SUCCESS };
 }
 
 export function login(username: string, password: string) {
-  return { type: LOGIN, username, password };
+  return { username, password, type: LOGIN };
 }
 
 export function loginSuccess(user: IUser): ILoginSuccessAction {
   const username = user.username;
-  return { type: LOGIN_SUCCESS, username };
+  return { username, type: LOGIN_SUCCESS };
 }
 
 export function loginFailed(): ILoginFailedAction {

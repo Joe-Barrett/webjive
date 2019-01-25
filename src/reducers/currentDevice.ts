@@ -1,8 +1,8 @@
 export default function(state = '', action) {
-    switch (action.type) {
+  switch (action.type) {
     case 'SELECT_DEVICE':
-        return action.name;
+      return action.name;
     default:
-        return state;
-    }
+      return state;
+  }
 }

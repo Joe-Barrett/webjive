@@ -1,10 +1,12 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-airbnb"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-config-airbnb"
+  ],
   "linterOptions": {
-    "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts"
-    ]
+    "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
   "jsRules": {
     "no-console": false,
@@ -17,6 +19,9 @@
     "object-literal-sort-keys": false,
     "max-classes-per-file": false,
     "jsx-no-lambda": false,
-    "trailing-comma": false
+    "trailing-comma": false,
+    "import-name": false,
+    "ter-arrow-parens": false,
+    "space-before-function-paren": false
   }
 }
