@@ -1,15 +1,15 @@
-import React, {Component} from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import Layout from "../Layout/Layout";
+import Layout from '../Layout/Layout';
 
-import "./App.css";
+import './App.css';
 
 class App extends Component {
   public render() {
     return (
       <BrowserRouter>
-        <Route path="/" component={Layout}/>
+        <Route path="/" component={Layout} />
       </BrowserRouter>
     );
   }
