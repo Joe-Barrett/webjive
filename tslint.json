@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-config-airbnb"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -16,6 +16,7 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "max-classes-per-file": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "trailing-comma": false
   }
 }
