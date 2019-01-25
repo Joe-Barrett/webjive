@@ -5,8 +5,8 @@
     "jest": true,
     "node": true
   },
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "prettier"],
+  "extends": ["react-app", "airbnb", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"]
   }
