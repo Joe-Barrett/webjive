@@ -8,6 +8,7 @@
   "extends": ["react-app", "airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "react/jsx-one-expression-per-line": false
   }
 }
