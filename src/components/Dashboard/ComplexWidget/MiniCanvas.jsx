@@ -107,9 +107,17 @@ class MiniCanvas extends Component {
 }
 
 MiniCanvas.propTypes = {
+  attributes: PropTypes.arrayOf(PropTypes.string),
   device: PropTypes.string,
   mode: PropTypes.string,
   widgets: PropTypes.arrayOf(widgetPropType)
+};
+
+MiniCanvas.defaultProps = {
+  attributes: [''],
+  device: '',
+  mode: 'edit',
+  widgets: [{}]
 };
 
 export default MiniCanvas;
